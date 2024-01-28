@@ -42,7 +42,7 @@ export default function Register() {
 
 
   return (
-    <main className="max-w-96 border p-5 mx-auto mt-5">
+    <main className="max-w-96 border p-5 mx-auto mt-5 shadow-lg">
       <div className="mb-5">
         <h1 className="text-center font-medium text-4xl">NGSA</h1>
       </div>
@@ -75,7 +75,7 @@ export default function Register() {
         </div>
 
         <div className="mb-5">
-          <input className="bg-gray-50 border rounded-md w-full p-2" type="password_confirmation" name="password_confirmation" placeholder="confirm your password" required/>
+          <input className="bg-gray-50 border rounded-md w-full p-2" type="password" name="password_confirmation" placeholder="confirm your password" required/>
         </div>
 
         <button type="submit" className="text-white bg-blue-600 rounded-lg px-4 py-2 hover:bg-blue-700 w-full">
