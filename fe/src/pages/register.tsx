@@ -3,11 +3,13 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import type { RegisterUserCredentials } from "../models/user";
 import { RegisterUser } from "../services/user_service";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import AlertMessage from "@/components/AlertMessage"
+import { useFlashMessageStore } from "@/stores/FlashMessageStore";
 
 export default function Register() {
   const router = useRouter();
+  const { setFlashMessage } = useFlashMessageStore();
   const [errorAlert, setErrorAlert] = useState<string>("");
   const mutation = useMutation({
     mutationFn: RegisterUser,
@@ -36,6 +38,9 @@ export default function Register() {
       password: passwordValue
     }
     mutation.mutate(newUser);
+
+    setFlashMessage({ flashMessageType: "success", flashMessageContent: "Registered account successfully" });
+    router.push("/login")
   }
 
 
