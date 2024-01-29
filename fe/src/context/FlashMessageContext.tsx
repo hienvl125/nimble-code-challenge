@@ -1,15 +1,20 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-type FlashMessageType = 'success' | 'error' | 'warning';
+type FlashMessageType = 'success' | 'error';
 
-interface FlashMessage {
+type FlashMessage = {
   messageType: FlashMessageType;
   messageContent: string;
 }
 
-interface FlashMessagesContextProps {
+type FlashMessageParams = {
+  messageType: FlashMessageType;
+  messageContent: string;
+}
+
+type FlashMessagesContextProps = {
   flashMessage: FlashMessage | null;
-  setFlashMessage: (messageType: FlashMessageType, messageContent: string) => void;
+  setFlashMessage: (message: FlashMessageParams | null) => void;
 }
 
 const FlashMessagesContext = createContext<FlashMessagesContextProps | undefined>(undefined);
@@ -17,9 +22,13 @@ const FlashMessagesContext = createContext<FlashMessagesContextProps | undefined
 export const FlashMessagesProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [flashMessage, setFlashMessage] = useState<FlashMessage | null>(null);
 
-  const setFlash = (messageType: FlashMessageType, messageContent: string) => {
-    setFlashMessage({ messageType, messageContent });
-    setTimeout(() => setFlashMessage(null), 5000); // Clear the flash message after 5 seconds
+  const setFlash = (message: FlashMessageParams | null) => {
+    if (message) {
+      setFlashMessage({ ...message });
+      setTimeout(() => setFlashMessage(null), 5000); // Clear the flash message after 5 seconds
+    } else {
+      setFlashMessage(null);
+    }
   };
 
   return (
