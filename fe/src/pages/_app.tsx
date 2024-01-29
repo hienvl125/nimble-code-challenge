@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react"
-import { FlashMessagesProvider } from '@/context/FlashMessageContext';
 import NonHeaderLayout from "@/layouts/NonHeaderLayout";
 import HeaderLayout from "@/layouts/HeaderLayout";
 
@@ -18,20 +17,19 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <FlashMessagesProvider>
-          {
-            (router.pathname === "/register" || router.pathname === "/login") ?
-              (
-                <NonHeaderLayout>
-                  <Component {...pageProps} />
-                </NonHeaderLayout>
-              ) : (
-                <HeaderLayout>
-                  <Component {...pageProps} />
-                </HeaderLayout>
-              )
-          }
-        </FlashMessagesProvider>
+
+        {
+          (router.pathname === "/register" || router.pathname === "/login") ?
+            (
+              <NonHeaderLayout>
+                <Component {...pageProps} />
+              </NonHeaderLayout>
+            ) : (
+              <HeaderLayout>
+                <Component {...pageProps} />
+              </HeaderLayout>
+            )
+        }
       </QueryClientProvider>
     </SessionProvider>
   );

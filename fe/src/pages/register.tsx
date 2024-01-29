@@ -3,18 +3,15 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import type { RegisterUserCredentials } from "../models/user";
 import { RegisterUser } from "../services/user_service";
-import { useFlashMessage } from "../context/FlashMessageContext";
 import { useRouter } from "next/router";
 import AlertMessage from "@/components/AlertMessage"
 
 export default function Register() {
   const router = useRouter();
-  const { setFlashMessage } = useFlashMessage();
   const [errorAlert, setErrorAlert] = useState<string>("");
   const mutation = useMutation({
     mutationFn: RegisterUser,
     onSuccess: () => {
-      setFlashMessage({ messageType: "success", messageContent: "Registered account successfully" });
       router.push("/login");
     },
     onError: () => {

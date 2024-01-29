@@ -1,13 +1,11 @@
 import { useState } from "react";
 import Link from "next/link";
-import { useFlashMessage } from "@/context/FlashMessageContext";
 import { useRouter } from "next/router";
 import { signIn as nextAuthSignIn } from "next-auth/react";
 import AlertMessage from "@/components/AlertMessage";
 
 export default function Login() {
   const router = useRouter();
-  const { flashMessage, setFlashMessage } = useFlashMessage();
   const [errorAlert, setErrorAlert] = useState<string>("");
 
   async function onSubmitLoginForm(evt: React.FormEvent<HTMLFormElement>) {
@@ -28,7 +26,6 @@ export default function Login() {
       return;
     }
 
-    setFlashMessage({ messageType: "success", messageContent: "Welcome to NGSA" });
     router.push("/");
   }
 
@@ -38,12 +35,6 @@ export default function Login() {
       <div className="mb-5">
         <h1 className="text-center font-medium text-4xl">NGSA</h1>
       </div>
-
-      {flashMessage && <AlertMessage
-        messageType={flashMessage.messageType}
-        messageContent={flashMessage.messageContent}
-        onClickCloseButton={() => setFlashMessage(null)}
-      />}
 
       {errorAlert && <AlertMessage
         messageType="error"
