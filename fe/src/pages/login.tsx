@@ -1,10 +1,12 @@
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { signIn as nextAuthSignIn } from "next-auth/react";
 import AlertMessage from "@/components/AlertMessage";
+import { useFlashMessageStore } from "@/stores/FlashMessageStore";
 
 export default function Login() {
+  const { flashMessage, setFlashMessage } = useFlashMessageStore();
   const router = useRouter();
   const [errorAlert, setErrorAlert] = useState<string>("");
 
@@ -29,7 +31,6 @@ export default function Login() {
     router.push("/");
   }
 
-
   return (
     <main className="max-w-96 border p-5 mx-auto mt-5 shadow-lg">
       <div className="mb-5">
@@ -40,6 +41,12 @@ export default function Login() {
         messageType="error"
         messageContent={errorAlert}
         onClickCloseButton={() => setErrorAlert("")}
+      />}
+
+      {flashMessage && <AlertMessage
+        messageType={flashMessage.flashMessageType}
+        messageContent={flashMessage.flashMessageContent}
+        onClickCloseButton={() => setFlashMessage(null)}
       />}
 
       <form onSubmit={onSubmitLoginForm}>
