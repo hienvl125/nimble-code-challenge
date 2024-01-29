@@ -5,7 +5,7 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-const StandardLayout: React.FC<LayoutProps> = ({ children }) => {
+const HeaderLayout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <>
       <Navbar />
@@ -14,4 +14,4 @@ const StandardLayout: React.FC<LayoutProps> = ({ children }) => {
   );
 };
 
-export default StandardLayout;
+export default HeaderLayout;
