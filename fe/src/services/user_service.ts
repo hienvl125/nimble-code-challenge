@@ -29,7 +29,7 @@ export const Login = async (user: LoginUserCredentials): Promise<UserSession | n
   const userSession: UserSession = {
     id: resp.data['id'],
     email: resp.data['email'],
-    accessToken: resp.data['access_token'],
+    accessToken: resp.data['accessToken'],
   }
 
   return userSession;
