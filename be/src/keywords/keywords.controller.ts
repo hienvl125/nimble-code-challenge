@@ -26,14 +26,13 @@ export class KeywordsController {
   @Get()
   async index(
     @NestReq() req: Request,
-    @Query('page') page: number,
+    @Query('page') page: string,
     @Res() res: Response,
   ): Promise<void> {
-    const queryPage = page || 1;
     const currentUserId = req.user.sub;
     const listKeywordsReq: ListKeywordsReq = {
       userId: currentUserId,
-      page: queryPage,
+      page: parseInt(page),
     }
     const listKeywordsResp: ListKeywordsResp = await this.keywordsService.list(listKeywordsReq);
     res.status(HttpStatus.OK).json(listKeywordsResp);
