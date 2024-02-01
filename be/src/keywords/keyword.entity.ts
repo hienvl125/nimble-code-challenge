@@ -1,4 +1,11 @@
-import { CreateDateColumn, Entity, PrimaryGeneratedColumn, Column,  } from "typeorm";
+import {
+    CreateDateColumn,
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    ManyToOne
+} from "typeorm";
+import { User } from "./../users/user.entity"
 
 @Entity()
 export class Keyword {
@@ -20,8 +27,12 @@ export class Keyword {
     @Column()
     searchDuration: number;
 
+    @Column({ type: 'text', nullable: true })
+    htmlContent: string;
+
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     createdAt: Date;
 
-    // TODO: how to store html page?
+    @ManyToOne(() => User, (user: User) => user.keywords)
+    user: User;
 }
