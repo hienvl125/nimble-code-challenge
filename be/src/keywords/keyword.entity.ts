@@ -15,16 +15,16 @@ export class Keyword {
     @Column()
     keyword: string;
 
-    @Column()
+    @Column({ type: 'bigint' })
     totalAds: number;
 
-    @Column()
+    @Column({ type: 'bigint' })
     totalLinks: number;
 
-    @Column()
+    @Column({ type: 'bigint' })
     totalSearchResults: number;
 
-    @Column()
+    @Column({ type: 'decimal', precision: 5, scale: 2 })
     searchDuration: number;
 
     @Column({ type: 'text', nullable: true })
