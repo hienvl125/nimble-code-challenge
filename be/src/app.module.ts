@@ -18,8 +18,11 @@ import { KeywordsModule } from './keywords/keywords.module';
       username: process.env.DB_USER,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       database: process.env.DB_NAME,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV !== 'production',
       logging: true,
+      extra: {
+        sslmode: process.env.NODE_ENV == 'production' ? 'require' : 'disable',
+      },
     }),
     UsersModule,
     AuthModule,

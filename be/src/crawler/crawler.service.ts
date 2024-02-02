@@ -5,8 +5,10 @@ import type { CrawlKeywordResult } from './dto/crawler.dto'
 @Injectable()
 export class CrawlerService {
   async scrapeWebsite(url: string): Promise<CrawlKeywordResult> {
+    let puppeteerArgs = process.env.NODE_ENV == 'production' ? ['--no-sandbox', '--disable-setuid-sandbox'] : [];
     const browser = await puppeteer.launch({
       headless: true,
+      args: puppeteerArgs,
     });
     const page = await browser.newPage();
     await page.goto(url);
