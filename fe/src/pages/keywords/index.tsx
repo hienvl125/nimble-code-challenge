@@ -186,7 +186,7 @@ export default function Keywords() {
             <p className="my-1">Total ads: {getKeywordResp.totalAds}</p>
             <p className="my-1">Total links: {getKeywordResp.totalLinks}</p>
             <p className="my-1">Total search results: {getKeywordResp.totalSearchResults}</p>
-            <p className="my-1">Search duration: {getKeywordResp.searchDuration}</p>
+            <p className="my-1">Search duration: {getKeywordResp.searchDuration} seconds</p>
             <p className="my-1">HTML</p>
             <textarea readOnly value={getKeywordResp.htmlContent || ""} className="text-sm w-full bg-gray-100" />
           </>
