@@ -76,6 +76,28 @@ export default function Keywords() {
     setIsModalOpen(true);
   }
 
+  const onClickDownloadSampleCSV = async () => {
+    const response = await fetch('/sample.csv');
+    const csvContent = await response.text();
+
+    // Create a Blob from the CSV content
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+
+    // Create a download link
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'sample.csv';
+
+    // Append the link to the document
+    document.body.appendChild(link);
+
+    // Trigger the click event on the link
+    link.click();
+
+    // Remove the link from the document
+    document.body.removeChild(link);
+  }
+
   return (
     <main className="max-w-screen-lg p-5 mx-auto">
       <h1 className="text-4xl text-center">Keywords Management</h1>
@@ -87,9 +109,15 @@ export default function Keywords() {
         className="hidden"
       />
 
-      <button onClick={onClickUploadKeywordsButton} className="text-white bg-blue-600 rounded-lg px-4 py-2 mt-3 hover:bg-blue-700">
-        Upload keywords
-      </button>
+      <div className="flex justify-between">
+        <button onClick={onClickUploadKeywordsButton} className="text-white bg-blue-600 rounded-lg px-4 py-2 mt-3 hover:bg-blue-700">
+          Upload keywords
+        </button>
+
+        <button onClick={onClickDownloadSampleCSV} className="text-blue-600 text-xs border border-blue-600 rounded-lg p-2 mt-3">
+          Get a sample CSV
+        </button>
+      </div>
 
       {isLoading && (
         <div className="mt-3 w-full flex justify-center">
